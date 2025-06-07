@@ -2,60 +2,119 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Watch Her Live</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>She’s Waiting for You 💋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #000;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
-      text-align: center;
+    html, body {
+      margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; overflow: hidden; background: black;
     }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      padding: 20px;
+    video {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1; filter: brightness(0.6);
     }
-    .banner {
-      width: 100%;
-      border-radius: 10px;
-      margin-top: 30px;
+    .overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      color: white; text-align: center; padding: 20px; box-sizing: border-box;
     }
     h1 {
-      font-size: 26px;
-      margin: 20px 0 10px 0;
-      color: #ff3399;
+      font-size: 26px; margin-bottom: 10px;
     }
     p {
-      font-size: 16px;
-      color: #ccc;
+      font-size: 16px; margin-bottom: 20px;
     }
-    .btn {
-      margin-top: 25px;
-      font-size: 20px;
-      padding: 12px 30px;
-      background-color: #ff3366;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+    button {
+      font-size: 18px; padding: 12px 30px; background-color: #ff2c6b;
+      border: none; border-radius: 30px; color: white; cursor: pointer;
     }
-    .btn:hover {
-      background-color: #e62e5c;
+    .lang-switch {
+      position: absolute; bottom: 20px; font-size: 13px; color: #ccc;
+      user-select: none;
+    }
+    .lang-switch a {
+      color: #ccc; text-decoration: none; margin: 0 5px;
+    }
+    .lang-switch a:hover {
+      text-decoration: underline;
     }
   </style>
+  <script>
+    const redirectLink = "https://bit.ly/0377jm";
+    let hasClicked = false;
+    const videoList = [
+      "https://cdn.pixabay.com/vimeo/691623243/girl-109932.mp4",
+      "https://cdn.pixabay.com/vimeo/775108840/model-144077.mp4",
+      "https://cdn.pixabay.com/vimeo/769751513/woman-139937.mp4"
+    ];
+
+    const messages = {
+      en: {
+        title: "She’s Waiting for You 💋",
+        desc: "Click to enter now... or wait 5 seconds to auto-redirect.",
+        btn: "Enter Now 🔥"
+      },
+      zh: {
+        title: "她正在等你 💋",
+        desc: "点击进入，或等待 5 秒自动跳转",
+        btn: "立即进入 🔥"
+      },
+      es: {
+        title: "Ella te está esperando 💋",
+        desc: "Haz clic para entrar ahora... o espera 5 segundos para redirigir automáticamente.",
+        btn: "Entrar Ahora 🔥"
+      },
+      fr: {
+        title: "Elle t’attend 💋",
+        desc: "Cliquez pour entrer maintenant... ou attendez 5 secondes pour la redirection automatique.",
+        btn: "Entrer Maintenant 🔥"
+      }
+    };
+
+    function setLang(lang) {
+      const msg = messages[lang] || messages['en'];
+      document.getElementById('title').innerText = msg.title;
+      document.getElementById('desc').innerText = msg.desc;
+      document.getElementById('btn').innerText = msg.btn;
+    }
+
+    function redirectNow() {
+      if (!hasClicked) {
+        hasClicked = true;
+        window.location.href = redirectLink;
+      }
+    }
+
+    window.onload = () => {
+      // 语言自动检测
+      const userLang = navigator.language || navigator.userLanguage;
+      if (userLang.startsWith("zh")) setLang("zh");
+      else if (userLang.startsWith("es")) setLang("es");
+      else if (userLang.startsWith("fr")) setLang("fr");
+      else setLang("en");
+
+      // 随机选择视频背景
+      const vidSrc = videoList[Math.floor(Math.random() * videoList.length)];
+      document.getElementById("bgvid").src = vidSrc;
+
+      // 5秒自动跳转
+      setTimeout(() => {
+        if (!hasClicked) redirectNow();
+      }, 5000);
+    };
+  </script>
 </head>
 <body>
-  <div class="container">
-    < img src="https://i.imgur.com/rcVpNoA.jpg" alt="sexy girl" class="banner">
-    <h1>She is Waiting for You 💋</h1>
-    <p>Click the button below to watch her live in private now</p >
-    <button class="btn" onclick="window.location.href='https://bit.ly/0377jm'">
-      Enter Room 🔥
-    </button>
+  <video id="bgvid" autoplay muted loop playsinline></video>
+  <div class="overlay">
+    <h1 id="title">Loading...</h1>
+    <p id="desc"></p >
+    <button id="btn" onclick="redirectNow()">...</button>
+    <div class="lang-switch">
+      Language:
+      English |
+      中文 |
+      Español |
+      Français
+    </div>
   </div>
 </body>
 </html>
