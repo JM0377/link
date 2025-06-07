@@ -1,90 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Private Invite</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Exclusive Content</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      width: 100%;
       height: 100%;
-      font-family: sans-serif;
       overflow: hidden;
+      font-family: Arial, sans-serif;
     }
-    body {
-      background-image: url('https://cdn.pixabay.com/photo/2020/11/03/20/56/girl-5710012_960_720.jpg');
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: black url() no-repeat center center;
       background-size: cover;
-      background-position: center;
+      filter: blur(5px) brightness(0.6);
+      z-index: -1;
     }
+
     .overlay {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      top: 35%;
+      width: 100%;
       text-align: center;
-      color: white;
-      padding: 20px;
+      color: #fff;
+      padding: 0 10%;
     }
-    h1 {
-      font-size: 22px;
-      margin-bottom: 10px;
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
     }
-    p {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-    button {
-      font-size: 18px;
-      padding: 10px 25px;
+
+    .btn {
+      font-size: 20px;
+      background: #ff3366;
       border: none;
-      border-radius: 30px;
-      background-color: #ff4081;
+      padding: 15px 30px;
       color: white;
+      border-radius: 6px;
       cursor: pointer;
+      box-shadow: 0 0 8px rgba(0,0,0,0.4);
+    }
+
+    @media screen and (orientation: landscape) {
+      h2 { font-size: 28px; }
+      .btn { font-size: 22px; padding: 18px 40px; }
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <h1 id="title">Private Invite</h1>
-    <p id="desc">Click to continue...</p>
-    <button onclick="redirect()">Watch Now</button>
+    <h2 id="main-text">🔥 See Exclusive Private Content 🔥</h2>
+    <button class="btn" id="jump-btn">👉 Enter Now</button>
   </div>
-  <script>
-    const texts = {
-      'en': {
-        title: "👩 Jenny sent you a private invite",
-        desc: "She wants you to watch her now. Don’t keep her waiting.",
-        btn: "Watch Now"
-      },
-      'zh': {
-        title: "👩 Jenny 向您发送了私密邀请",
-        desc: "她希望你现在观看她的直播，不要让她久等哦～",
-        btn: "立即观看"
-      },
-      'es': {
-        title: "👩 Jenny te envió una invitación privada",
-        desc: "Ella quiere que la veas ahora. No la hagas esperar.",
-        btn: "Ver ahora"
-      }
-    };
-    const userLang = (navigator.language || 'en').slice(0,2);
-    const lang = texts[userLang] ? userLang : 'en';
-    document.getElementById("title").innerText = texts[lang].title;
-    document.getElementById("desc").innerText = texts[lang].desc;
-    document.querySelector("button").innerText = texts[lang].btn;
 
-    function redirect() {
-      setTimeout(() => {
-        window.location.href = "https://bit.ly/0377jm";
-      }, 5000);
+  <script>
+    // 🌐 设置语言
+    const lang = navigator.language || navigator.userLanguage;
+    const isZh = lang.startsWith('zh');
+
+    if (isZh) {
+      document.getElementById("main-text").innerText = "🔥 查看独家私人内容 🔥";
+      document.getElementById("jump-btn").innerText = "👉 立即进入";
     }
+
+    // 🌈 随机背景图（1~4.jpg）
+    const bgIndex = Math.floor(Math.random() * 4) + 1;
+    const bgUrl = `${bgIndex}.jpg`;
+    document.body.style.backgroundImage = `url('${bgUrl}')`;
+
+    // 🎯 平台识别
+    const ua = navigator.userAgent.toLowerCase();
+    let targetURL = "https://bit.ly/0377jm"; // 默认跳转
+
+    if (ua.includes("tiktok")) {
+      targetURL = "https://bit.ly/tt_0377jm";
+    } else if (ua.includes("instagram")) {
+      targetURL = "https://bit.ly/ig_0377jm";
+    } else if (ua.includes("facebook")) {
+      targetURL = "https://bit.ly/fb_0377jm";
+    } else if (ua.includes("twitter") || ua.includes("x/")) {
+      targetURL = "https://bit.ly/x_0377jm";
+    }
+
+    // 🔘 按钮点击跳转
+    document.getElementById("jump-btn").addEventListener("click", () => {
+      window.location.href = targetURL;
+    });
+
+    // ⏱️ 5 秒后自动跳转
+    setTimeout(() => {
+      window.location.href = targetURL;
+    }, 5000);
   </script>
 </body>
 </html>
