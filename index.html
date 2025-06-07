@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Exclusive Content</title>
+  <title>Exclusive Page</title>
   <style>
     html, body {
       margin: 0;
@@ -13,13 +13,17 @@
       font-family: Arial, sans-serif;
     }
 
-    body::before {
-      content: "";
+    body {
+      position: relative;
+      background: #000 no-repeat center center;
+      background-size: cover;
+    }
+
+    .background-blur {
       position: absolute;
       inset: 0;
-      background: black url() no-repeat center center;
-      background-size: cover;
-      filter: blur(5px) brightness(0.6);
+      background: inherit;
+      filter: blur(6px) brightness(0.6);
       z-index: -1;
     }
 
@@ -34,7 +38,7 @@
 
     h2 {
       font-size: 24px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .btn {
@@ -43,9 +47,9 @@
       border: none;
       padding: 15px 30px;
       color: white;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(0,0,0,0.4);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
     @media screen and (orientation: landscape) {
@@ -55,46 +59,49 @@
   </style>
 </head>
 <body>
+  <div class="background-blur"></div>
+
   <div class="overlay">
     <h2 id="main-text">🔥 See Exclusive Private Content 🔥</h2>
     <button class="btn" id="jump-btn">👉 Enter Now</button>
   </div>
 
   <script>
-    // 🌐 设置语言
-    const lang = navigator.language || navigator.userLanguage;
-    const isZh = lang.startsWith('zh');
-
+    // 语言识别
+    const isZh = (navigator.language || navigator.userLanguage).startsWith('zh');
     if (isZh) {
-      document.getElementById("main-text").innerText = "🔥 查看独家私人内容 🔥";
-      document.getElementById("jump-btn").innerText = "👉 立即进入";
+      document.getElementById('main-text').innerText = '🔥 查看独家私人内容 🔥';
+      document.getElementById('jump-btn').innerText = '👉 立即进入';
     }
 
-    // 🌈 随机背景图（1~4.jpg）
+    // 随机背景图 1-4.jpg
     const bgIndex = Math.floor(Math.random() * 4) + 1;
-    const bgUrl = `${bgIndex}.jpg`;
-    document.body.style.backgroundImage = `url('${bgUrl}')`;
+    const bgImg = `${bgIndex}.jpg`;
+    document.body.style.backgroundImage = `url('${bgImg}')`;
 
-    // 🎯 平台识别
+    // 设置模糊背景图
+    document.querySelector('.background-blur').style.backgroundImage = `url('${bgImg}')`;
+
+    // 平台识别跳转
     const ua = navigator.userAgent.toLowerCase();
-    let targetURL = "https://bit.ly/0377jm"; // 默认跳转
+    let targetURL = 'https://bit.ly/0377jm';
 
-    if (ua.includes("tiktok")) {
-      targetURL = "https://bit.ly/tt_0377jm";
-    } else if (ua.includes("instagram")) {
-      targetURL = "https://bit.ly/ig_0377jm";
-    } else if (ua.includes("facebook")) {
-      targetURL = "https://bit.ly/fb_0377jm";
-    } else if (ua.includes("twitter") || ua.includes("x/")) {
-      targetURL = "https://bit.ly/x_0377jm";
+    if (ua.includes('tiktok')) {
+      targetURL = 'https://bit.ly/tt_0377jm';
+    } else if (ua.includes('instagram')) {
+      targetURL = 'https://bit.ly/ig_0377jm';
+    } else if (ua.includes('facebook')) {
+      targetURL = 'https://bit.ly/fb_0377jm';
+    } else if (ua.includes('twitter') || ua.includes('x/')) {
+      targetURL = 'https://bit.ly/x_0377jm';
     }
 
-    // 🔘 按钮点击跳转
-    document.getElementById("jump-btn").addEventListener("click", () => {
+    // 点击按钮跳转
+    document.getElementById('jump-btn').addEventListener('click', () => {
       window.location.href = targetURL;
     });
 
-    // ⏱️ 5 秒后自动跳转
+    // 5 秒后自动跳转
     setTimeout(() => {
       window.location.href = targetURL;
     }, 5000);
