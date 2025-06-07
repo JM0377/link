@@ -21,16 +21,6 @@
       background-position: center center;
     }
 
-    .background-blur {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
-      filter: blur(2px) brightness(0.7);
-    }
-
     .overlay {
       position: absolute;
       top: 35%;
@@ -38,11 +28,13 @@
       text-align: center;
       color: #fff;
       padding: 0 10%;
+      z-index: 1;
     }
 
     h2 {
       font-size: 24px;
       margin-bottom: 20px;
+      text-shadow: 0 0 5px #000;
     }
 
     .btn {
@@ -63,7 +55,6 @@
   </style>
 </head>
 <body>
-  <div class="background-blur" id="blur-bg"></div>
 
   <div class="overlay">
     <h2 id="main-text">🔥 See Exclusive Private Content 🔥</h2>
@@ -81,9 +72,7 @@
     // 随机背景图
     const bgIndex = Math.floor(Math.random() * 4) + 1;
     const bgImg = `${bgIndex}.jpg`;
-
     document.body.style.backgroundImage = `url('${bgImg}')`;
-    document.getElementById("blur-bg").style.backgroundImage = `url('${bgImg}')`;
 
     // 平台识别跳转地址
     const ua = navigator.userAgent.toLowerCase();
@@ -109,5 +98,6 @@
       window.location.href = targetURL;
     }, 5000);
   </script>
+
 </body>
 </html>
