@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Exclusive Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Private Access</title>
   <style>
     html, body {
       margin: 0;
@@ -15,16 +15,20 @@
 
     body {
       position: relative;
-      background: #000 no-repeat center center;
+      background-color: black;
+      background-repeat: no-repeat;
       background-size: cover;
+      background-position: center center;
     }
 
     .background-blur {
       position: absolute;
       inset: 0;
-      background: inherit;
-      filter: blur(6px) brightness(0.6);
       z-index: -1;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      filter: blur(8px) brightness(0.6);
     }
 
     .overlay {
@@ -59,7 +63,7 @@
   </style>
 </head>
 <body>
-  <div class="background-blur"></div>
+  <div class="background-blur" id="blur-bg"></div>
 
   <div class="overlay">
     <h2 id="main-text">🔥 See Exclusive Private Content 🔥</h2>
@@ -67,41 +71,40 @@
   </div>
 
   <script>
-    // 语言识别
+    // 自动语言切换
     const isZh = (navigator.language || navigator.userLanguage).startsWith('zh');
     if (isZh) {
       document.getElementById('main-text').innerText = '🔥 查看独家私人内容 🔥';
       document.getElementById('jump-btn').innerText = '👉 立即进入';
     }
 
-    // 随机背景图 1-4.jpg
+    // 随机背景图
     const bgIndex = Math.floor(Math.random() * 4) + 1;
     const bgImg = `${bgIndex}.jpg`;
+
     document.body.style.backgroundImage = `url('${bgImg}')`;
+    document.getElementById("blur-bg").style.backgroundImage = `url('${bgImg}')`;
 
-    // 设置模糊背景图
-    document.querySelector('.background-blur').style.backgroundImage = `url('${bgImg}')`;
-
-    // 平台识别跳转
+    // 平台识别跳转地址
     const ua = navigator.userAgent.toLowerCase();
-    let targetURL = 'https://bit.ly/0377jm';
+    let targetURL = "https://bit.ly/0377jm";
 
-    if (ua.includes('tiktok')) {
-      targetURL = 'https://bit.ly/tt_0377jm';
-    } else if (ua.includes('instagram')) {
-      targetURL = 'https://bit.ly/ig_0377jm';
-    } else if (ua.includes('facebook')) {
-      targetURL = 'https://bit.ly/fb_0377jm';
-    } else if (ua.includes('twitter') || ua.includes('x/')) {
-      targetURL = 'https://bit.ly/x_0377jm';
+    if (ua.includes("tiktok")) {
+      targetURL = "https://bit.ly/tt_0377jm";
+    } else if (ua.includes("instagram")) {
+      targetURL = "https://bit.ly/ig_0377jm";
+    } else if (ua.includes("facebook")) {
+      targetURL = "https://bit.ly/fb_0377jm";
+    } else if (ua.includes("twitter") || ua.includes("x/")) {
+      targetURL = "https://bit.ly/x_0377jm";
     }
 
-    // 点击按钮跳转
-    document.getElementById('jump-btn').addEventListener('click', () => {
+    // 点击跳转
+    document.getElementById("jump-btn").addEventListener("click", () => {
       window.location.href = targetURL;
     });
 
-    // 5 秒后自动跳转
+    // 延迟跳转
     setTimeout(() => {
       window.location.href = targetURL;
     }, 5000);
